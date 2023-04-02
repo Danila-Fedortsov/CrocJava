@@ -49,9 +49,13 @@ public class RentManagement {
      * @return
      */
     public boolean rent(int vehicleIndex, LocalDate startDate, LocalDate endDate) {
-        Vehicle vehicle = getVehicle(vehicleIndex);
-        if (vehicle == null) {
+        if (getVehicle(vehicleIndex) == null) {
             return false;
+        }
+        for (RentRecord rr : records) {
+            if (rr.getVehicleIndex() == vehicleIndex && rr.isActive(startDate, endDate)) {
+                return false;
+            }
         }
         addToRecords(new RentRecord(vehicleIndex, startDate, endDate));
         return true;
@@ -379,17 +383,26 @@ public class RentManagement {
      * @return
      */
     public Vehicle[] searchFreeVehicles(LocalDate startDate, LocalDate endDate) {
-        Vehicle[] searchVehicles = new Vehicle[0];
-        for (RentRecord rec : records) {
-            if (!rec.isActive(startDate, endDate)) {
-                Vehicle[] newSearchVehicles = new Vehicle[searchVehicles.length + 1];
-                System.arraycopy(searchVehicles, 0, newSearchVehicles, 0, searchVehicles.length);
-                newSearchVehicles[searchVehicles.length] = getVehicle(rec.getVehicleIndex());
-                searchVehicles = newSearchVehicles;
+        Vehicle[] freeVehicles = new Vehicle[vehicles.length];
+        System.arraycopy(vehicles, 0, freeVehicles, 0, vehicles.length);
+
+        for (Vehicle vehicle : vehicles) {
+            for (RentRecord rr : records) {
+                if (rr.getVehicleIndex() == vehicle.getIndex() && rr.isActive(startDate, endDate)) {
+                    Vehicle[] newFreeVehicles = new Vehicle[freeVehicles.length - 1];
+                    int k = 0;
+                    for (Vehicle freeVehicle : freeVehicles) {
+                        if (vehicle.getIndex() == freeVehicle.getIndex()) {
+                            continue;
+                        }
+                        newFreeVehicles[k] = freeVehicle;
+                        k++;
+                    }
+                    freeVehicles = newFreeVehicles;
+                }
             }
         }
-
-        return searchVehicles;
+        return freeVehicles;
     }
 
     /**
