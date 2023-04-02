@@ -1,36 +1,32 @@
 package ru.croc.javaschool.sveterkom.vehicles.aircrafts;
 
 /**
+ * Бизнес-джет.
  *
+ * @author Danila Fedortsov
  */
 public class BusinessJet extends Aircraft {
     /**
-     *
+     * Декоративное поле. <br>
+     * Размах крыльев.
      */
     private double wingspan;
 
     /**
+     * Создаёт {@link BusinessJet}.
      *
-     * @param index
+     * @param index номер бизнес-джета
      */
     public BusinessJet(int index) {
         super(index);
     }
 
     /**
+     * Создан, чтобы условно показывать реализацию доступа к полю wingspan.
      *
-     * @return
+     * @return размах крыльев
      */
     public double getWingspan() {
         return wingspan;
     }
-
-    /**
-     *
-     * @param wingspan
-     */
-    public void setWingspan(double wingspan) {
-        this.wingspan = wingspan;
-    }
-
 }
