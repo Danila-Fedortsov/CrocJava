@@ -80,14 +80,16 @@ public class RentManagement {
     /**
      * Возвращает ТС из аренды. <br>
      * В случае возврата не в назначенную дату обновляет соответствующую запись об аренде.
+     * Необходимо передавать действительную дату начала аренды, иначе запись об аренде не будет найдена.
      *
      * @param vehicleIndex индекс ТС
+     * @param startDate дата начала аренды
      * @param endDate фактическая дата конца аренды
      * @return true - ТС возвращено, false - ТС или запись об аренде не найдены
      */
-    public boolean returnFromRent(int vehicleIndex, LocalDate endDate) {
+    public boolean returnFromRent(int vehicleIndex, LocalDate startDate, LocalDate endDate) {
         Vehicle vehicle = getVehicle(vehicleIndex);
-        RentRecord record = getRecord(vehicleIndex);
+        RentRecord record = getRecord(vehicleIndex, startDate);
         if (vehicle == null || record == null) {
             return false;
         }
@@ -521,14 +523,15 @@ public class RentManagement {
     }
 
     /**
-     * Возвращает последнюю сделанную запись об аренде с заданным индексом ТС.
+     * Возвращает запись об аренде с заданным индексом ТС и датой начала аренды.
      *
      * @param vehicleIndex индекс ТС
+     * @param startDate дата начала аренды
      * @return запись об аренде, либо null если записи не найдено
      */
-    private RentRecord getRecord(int vehicleIndex) {
+    private RentRecord getRecord(int vehicleIndex, LocalDate startDate) {
         for (RentRecord r : this.records) {
-            if (r.getVehicleIndex() == vehicleIndex) {
+            if (r.getVehicleIndex() == vehicleIndex && r.getStartDate().isEqual(startDate)) {
                 return r;
             }
         }

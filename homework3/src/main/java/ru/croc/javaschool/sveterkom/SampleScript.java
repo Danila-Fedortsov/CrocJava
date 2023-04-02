@@ -111,7 +111,9 @@ public class SampleScript {
         );
 
         // Арендатор ТС 5 решил вернуть его раньше срока. Не беда!
-        if (!rm.returnFromRent(5, LocalDate.of(2023, 4, 23))) {
+        if (!rm.returnFromRent(5,
+                LocalDate.of(2023, 4, 1),
+                LocalDate.of(2023, 4, 23))) {
             System.out.println("Такого ТС не существует, либо он не был арендован.\n");
         } else {
             System.out.println("ТС принято.\n");

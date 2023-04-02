@@ -3,41 +3,45 @@ package ru.croc.javaschool.sveterkom.rent;
 import java.time.LocalDate;
 
 /**
+ * Запись об аренде.
  *
+ * @author Danila Fedortsov
  */
 public class RentRecord {
     /**
-     *
+     * Индекс арендованного ТС.
      */
-    private int carIndex;
+    private final int vehicleIndex;
 
     /**
-     *
+     * Дата начала аренды.
      */
-    private LocalDate startDate;
+    private final LocalDate startDate;
 
     /**
-     *
+     * Дата конца аренды.
      */
     private LocalDate endDate;
 
     /**
+     * Создаёт {@link RentRecord}.
      *
-     * @param carIndex
-     * @param startDate
-     * @param endDate
+     * @param vehicleIndex индекс ТС
+     * @param startDate дата начала аренды
+     * @param endDate дата завершения аренды
      */
-    public RentRecord(int carIndex, LocalDate startDate, LocalDate endDate) {
-        this.carIndex = carIndex;
+    public RentRecord(int vehicleIndex, LocalDate startDate, LocalDate endDate) {
+        this.vehicleIndex = vehicleIndex;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
     /**
+     * Даёт понять активна ли аренда в период заданных дат.
      *
-     * @param dateOne
-     * @param dateTwo
-     * @return
+     * @param dateOne дата начала периода
+     * @param dateTwo дата конца периода
+     * @return true - аренда активна, false - аренда не активна
      */
     public boolean isActive(LocalDate dateOne, LocalDate dateTwo) {
         return !(dateOne.isAfter(startDate) && dateOne.isAfter(endDate) ||
@@ -45,18 +49,29 @@ public class RentRecord {
     }
 
     /**
+     * Задаёт фактическую дату завершения аренды.
      *
-     * @param endDate
+     * @param endDate фактическая дата завершения аренды
      */
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
     /**
+     * Возвращает индекс арендуемого ТС.
      *
-     * @return
+     * @return индекс ТС
      */
     public int getVehicleIndex() {
-        return carIndex;
+        return vehicleIndex;
+    }
+
+    /**
+     * Возвращает дату начала аренды.
+     *
+     * @return дата начала аренды
+     */
+    public LocalDate getStartDate() {
+        return startDate;
     }
 }
