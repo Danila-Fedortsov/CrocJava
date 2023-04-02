@@ -8,31 +8,45 @@ import ru.croc.javaschool.sveterkom.vehicles.IMVehicles.*;
 import ru.croc.javaschool.sveterkom.vehicles.motorcars.*;
 
 /**
+ * Управление сервисом по аренде транспортных средств (ТС).
  *
+ * @author Danila Fedortsov
  */
 public class RentManagement {
     /**
-     *
+     * Индекс последнего добавленного ТС.
      */
     private int INDEX;
 
     /**
-     *
+     * Массив содержащий количество ТС каждого вида. <br>
+     * Для реализации в данном случае подразумевается, что vehicleCounts.length = 6,
+     * что соответствует количеству видов ТС. Позиции ТС: <br>
+     * 0 - Бизнес-джеты; <br>
+     * 1 - Вертолёты; <br>
+     * 2 - Электросамокаты; <br>
+     * 3 - Гироскутеры; <br>
+     * 4 - Легковые автомобили; <br>
+     * 5 - Грузовые автомобили. <br>
+     * В каждой из позиций лежит число (int) означающее количество ТС данного вида.
      */
-    private int[] vehicleCounts;
+    private final int[] vehicleCounts;
 
     /**
-     *
+     * Список транспорта в распоряжении сервиса.
      */
     private Vehicle[] vehicles;
 
     /**
-     *
+     * Список записей об аренде. <br>
+     * Сначала новые записи, потом старые.
      */
     private RentRecord[] records;
 
     /**
-     *
+     * Создаёт {@link RentManagement}. <br>
+     * Инициализирует массивы списков автомобилей и записей об аренде,
+     * а так же массив с количеством ТС и стартовый индекс.
      */
     public RentManagement() {
         this.INDEX = 0;
@@ -42,11 +56,13 @@ public class RentManagement {
     }
 
     /**
+     * Отдаёт ТС в аренду. <br>
+     * Добавляет запись об аренде.
      *
-     * @param vehicleIndex
-     * @param startDate
-     * @param endDate
-     * @return
+     * @param vehicleIndex индекс ТС
+     * @param startDate дата начала периода
+     * @param endDate дата конца периода
+     * @return true - ТС арендовано, false - ТС занято или не найдено
      */
     public boolean rent(int vehicleIndex, LocalDate startDate, LocalDate endDate) {
         if (getVehicle(vehicleIndex) == null) {
@@ -62,10 +78,12 @@ public class RentManagement {
     }
 
     /**
+     * Возвращает ТС из аренды. <br>
+     * В случае возврата не в назначенную дату обновляет соответствующую запись об аренде.
      *
-     * @param vehicleIndex
-     * @param endDate
-     * @return
+     * @param vehicleIndex индекс ТС
+     * @param endDate фактическая дата конца аренды
+     * @return true - ТС возвращено, false - ТС или запись об аренде не найдены
      */
     public boolean returnFromRent(int vehicleIndex, LocalDate endDate) {
         Vehicle vehicle = getVehicle(vehicleIndex);
@@ -78,9 +96,11 @@ public class RentManagement {
     }
 
     /**
+     * Добавляет новое ТС. <br>
+     * Присваивает ему уникальный индекс.
      *
-     * @param vehicle
-     * @return
+     * @param vehicle новое ТС
+     * @return true - ТС добавлено, false - попытка положить null
      */
     public boolean addVehicle(Vehicle vehicle) {
         if (vehicle == null) {
@@ -107,19 +127,21 @@ public class RentManagement {
     }
 
     /**
+     * Списывает ТС.
      *
-     * @param index
-     * @return
+     * @param index индекс ТС
+     * @return true - ТС списано, false - ТС не найдено.
      */
     public boolean decommissioningVehicle(int index) {
         return delFromVehiclesList(index);
     }
 
     /**
+     * Создаёт список содержащий все ТС свободные для аренды в заданный временной промежуток.
      *
-     * @param startDate
-     * @param endDate
-     * @return
+     * @param startDate начало временного интервала
+     * @param endDate конц временного интервала
+     * @return список свободных ТС по категориям
      */
     public String printFreeCategories(LocalDate startDate, LocalDate endDate) {
         String initialLine = "В период: " + startDate.toString() + " --- " + endDate.toString() + " свободны следующие ТС:\n";
@@ -129,7 +151,7 @@ public class RentManagement {
         IMVehicle[] freeIMVehicles = searchFreeIMVehicle(startDate, endDate);
         Motorcar[] freeMotorcars = searchFreeMotorcars(startDate, endDate);
 
-        answer.append("Воздушный транспорт (").append(freeAircraft.length).append("):\n");
+        answer.append("Воздушные суда (").append(freeAircraft.length).append("):\n");
         for (Aircraft a : freeAircraft) {
             answer.append("ВТС ").append(a.getIndex()).append("\n");
         }
@@ -151,9 +173,11 @@ public class RentManagement {
     }
 
     /**
+     * Создаёт отчёт в текстовом формате о количестве совбодных и арендованных ТС каждого вида
+     * в пределах категорий на момент заданной даты.
      *
-     * @param searchDate
-     * @return
+     * @param searchDate дата отчётности
+     * @return список видов ТС по категориям с данными об арендованных и свободных ТС
      */
     public String printReport(LocalDate searchDate) {
         String initialLine = "Отчет за " + searchDate.toString() + " (свободно / занято):\n";
@@ -166,7 +190,7 @@ public class RentManagement {
         int freeCars = searchFreeCars(searchDate, searchDate).length;
         int freeTrucks = searchFreeTrucks(searchDate, searchDate).length;
 
-        answer.append("Воздушный транспорт:\n");
+        answer.append("Воздушные суда:\n");
         answer.append(
                 String.format("Бизнес-джеты: (%s / %s)%n", freeBusinessJets, vehicleCounts[0] - freeBusinessJets)
         );
@@ -197,10 +221,11 @@ public class RentManagement {
     }
 
     /**
+     * Ищет все свободные ТС вида "Бизнес-джет" в период с startDate по endDate включительно.
      *
-     * @param startDate
-     * @param endDate
-     * @return
+     * @param startDate начало временного интервала
+     * @param endDate конец временного интервала
+     * @return список свободных бизнес-джетов в период startDate-endDate
      */
     public BusinessJet[] searchFreeBusinessJets(LocalDate startDate, LocalDate endDate) {
         Aircraft[] freeAircraft = searchFreeAircraft(startDate, endDate);
@@ -217,10 +242,11 @@ public class RentManagement {
     }
 
     /**
+     * Ищет все свободные ТС вида "Вертолёт" в период с startDate по endDate включительно.
      *
-     * @param startDate
-     * @param endDate
-     * @return
+     * @param startDate начало временного интервала
+     * @param endDate конец временного интервала
+     * @return список свободных вертолётов в период startDate-endDate
      */
     public Helicopter[] searchFreeHelicopters(LocalDate startDate, LocalDate endDate) {
         Aircraft[] freeAircraft = searchFreeAircraft(startDate, endDate);
@@ -237,10 +263,11 @@ public class RentManagement {
     }
 
     /**
+     * Ищет все свободные ТС вида "Электросамокат" в период с startDate по endDate включительно.
      *
-     * @param startDate
-     * @param endDate
-     * @return
+     * @param startDate начало временного интервала
+     * @param endDate конец временного интервала
+     * @return список свободных электросамокатов в период startDate-endDate
      */
     public ElectricScooter[] searchFreeElectricScooters(LocalDate startDate, LocalDate endDate) {
         IMVehicle[] freeIMVehicle = searchFreeIMVehicle(startDate, endDate);
@@ -257,10 +284,11 @@ public class RentManagement {
     }
 
     /**
+     * Ищет все свободные ТС вида "Гироскутер" в период с startDate по endDate включительно.
      *
-     * @param startDate
-     * @param endDate
-     * @return
+     * @param startDate начало временного интервала
+     * @param endDate конец временного интервала
+     * @return список свободных гироскутеров в период startDate-endDate
      */
     public GyroScooter[] searchFreeGyroScooters(LocalDate startDate, LocalDate endDate) {
         IMVehicle[] freeIMVehicle = searchFreeIMVehicle(startDate, endDate);
@@ -277,10 +305,11 @@ public class RentManagement {
     }
 
     /**
+     * Ищет все свободные ТС вида "Легковой автомобиль" в период с startDate по endDate включительно.
      *
-     * @param startDate
-     * @param endDate
-     * @return
+     * @param startDate начало временного интервала
+     * @param endDate конец временного интервала
+     * @return список свободных легковых автомобилей в период startDate-endDate
      */
     public Car[] searchFreeCars(LocalDate startDate, LocalDate endDate) {
         Motorcar[] freeMotorcars = searchFreeMotorcars(startDate, endDate);
@@ -297,10 +326,11 @@ public class RentManagement {
     }
 
     /**
+     * Ищет все свободные ТС вида "Грузовой автомобиль" в период с startDate по endDate включительно.
      *
-     * @param startDate
-     * @param endDate
-     * @return
+     * @param startDate начало временного интервала
+     * @param endDate конец временного интервала
+     * @return список свободных грузовых автомобилей в период startDate-endDate
      */
     public Truck[] searchFreeTrucks(LocalDate startDate, LocalDate endDate) {
         Motorcar[] freeMotorcars = searchFreeMotorcars(startDate, endDate);
@@ -317,10 +347,11 @@ public class RentManagement {
     }
 
     /**
+     * Ищет все свободные ТС категории "Воздушное судно" (ВС) в период с startDate по endDate включительно.
      *
-     * @param startDate
-     * @param endDate
-     * @return
+     * @param startDate начало временного интервала
+     * @param endDate конец временного интервала
+     * @return список свободных ВС в период startDate-endDate
      */
     public Aircraft[] searchFreeAircraft(LocalDate startDate, LocalDate endDate) {
         Vehicle[] freeVehicles = searchFreeVehicles(startDate, endDate);
@@ -337,10 +368,12 @@ public class RentManagement {
     }
 
     /**
+     * Ищет все свободные ТС категории "Средства индивидуально мобильности" (СИМ) в период
+     * с startDate по endDate включительно.
      *
-     * @param startDate
-     * @param endDate
-     * @return
+     * @param startDate начало временного интервала
+     * @param endDate конец временного интервала
+     * @return список свободных СИМ в период startDate-endDate
      */
     public IMVehicle[] searchFreeIMVehicle(LocalDate startDate, LocalDate endDate) {
         Vehicle[] freeVehicles = searchFreeVehicles(startDate, endDate);
@@ -357,10 +390,11 @@ public class RentManagement {
     }
 
     /**
+     * Ищет все свободные ТС категории "Автомобильный транспорт" (АТ) в период с startDate по endDate включительно.
      *
-     * @param startDate
-     * @param endDate
-     * @return
+     * @param startDate начало временного интервала
+     * @param endDate конец временного интервала
+     * @return список свободного АТ в период startDate-endDate
      */
     public Motorcar[] searchFreeMotorcars(LocalDate startDate, LocalDate endDate) {
         Vehicle[] freeVehicles = searchFreeVehicles(startDate, endDate);
@@ -377,10 +411,11 @@ public class RentManagement {
     }
 
     /**
+     * Ищет все свободные ТС в период с startDate по endDate включительно.
      *
-     * @param startDate
-     * @param endDate
-     * @return
+     * @param startDate начало временного интервала
+     * @param endDate конец временного интервала
+     * @return список свободных ТС в период startDate-endDate
      */
     public Vehicle[] searchFreeVehicles(LocalDate startDate, LocalDate endDate) {
         Vehicle[] freeVehicles = new Vehicle[vehicles.length];
@@ -406,8 +441,9 @@ public class RentManagement {
     }
 
     /**
+     * Добавляет новое ТС в конец списка vehicles.
      *
-     * @param vehicle
+     * @param vehicle ТС
      */
     private void addToVehiclesList(Vehicle vehicle) {
         Vehicle[] newVehicles = new Vehicle[vehicles.length + 1];
@@ -417,9 +453,11 @@ public class RentManagement {
     }
 
     /**
+     * Удаляет ТС из списка vehicles по заданному индексу ТС. <br>
+     * Уменьшает количество ТС соответсвующего вида в vehiclesCount.
      *
-     * @param vehicleIndex
-     * @return
+     * @param vehicleIndex индекс ТС
+     * @return true - ТС удалено, false - ТС не найдено
      */
     private boolean delFromVehiclesList(int vehicleIndex) {
         Vehicle remVehicle = getVehicle(vehicleIndex);
@@ -456,9 +494,10 @@ public class RentManagement {
     }
 
     /**
+     * Возвращает ТС по заданному индексу ТС.
      *
-     * @param vehicleIndex
-     * @return
+     * @param vehicleIndex индекс ТС
+     * @return ТС, либо null, если ТС не найдено
      */
     private Vehicle getVehicle(int vehicleIndex) {
         for (Vehicle vehicle : this.vehicles) {
@@ -470,8 +509,9 @@ public class RentManagement {
     }
 
     /**
+     * Добавляет запись об аренде в начало списка записей records.
      *
-     * @param record
+     * @param record запись об аренде
      */
     private void addToRecords(RentRecord record) {
         RentRecord[] newRecords = new RentRecord[records.length + 1];
@@ -481,9 +521,10 @@ public class RentManagement {
     }
 
     /**
+     * Возвращает последнюю сделанную запись об аренде с заданным индексом ТС.
      *
-     * @param vehicleIndex
-     * @return
+     * @param vehicleIndex индекс ТС
+     * @return запись об аренде, либо null если записи не найдено
      */
     private RentRecord getRecord(int vehicleIndex) {
         for (RentRecord r : this.records) {
@@ -495,8 +536,9 @@ public class RentManagement {
     }
 
     /**
-     *
-     * @return
+     * Позволяет присваивать уникальный индекс каждому вновь прибывшему ТС. <br>
+     * Новый индекс = предыдущий индекс + 1.
+     * @return уникальный индекс автомобиля
      */
     private int getINDEX() {
         INDEX += 1;

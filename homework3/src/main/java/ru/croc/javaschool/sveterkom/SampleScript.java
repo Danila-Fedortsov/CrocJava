@@ -35,6 +35,11 @@ public class SampleScript {
         rm.addVehicle(new Truck(0));
         rm.addVehicle(new Truck(0));
 
+        // Попробуем ничего не добавить.
+        if (!rm.addVehicle(null)) {
+            System.out.println("Ошибка, попробуйте еще раз!\n");
+        }
+
         // Допустим грузовик с индексом 9 неисправен и нам надо его списать.
         if (!rm.decommissioningVehicle(9)) {
             System.out.println("Транспорта с таким номером нет! Повторите попытку.\n");
@@ -104,5 +109,12 @@ public class SampleScript {
         System.out.println(
                 rm.printReport(LocalDate.of(2023, 3, 31))
         );
+
+        // Арендатор ТС 5 решил вернуть его раньше срока. Не беда!
+        if (!rm.returnFromRent(5, LocalDate.of(2023, 4, 23))) {
+            System.out.println("Такого ТС не существует, либо он не был арендован.\n");
+        } else {
+            System.out.println("ТС принято.\n");
+        }
     }
 }
