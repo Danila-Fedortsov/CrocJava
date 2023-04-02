@@ -3,19 +3,32 @@ package ru.croc.javaschool.sveterkom.vehicles.motorcars;
 /**
  *
  */
-public class Car extends Motorcar{
+public class Car extends Motorcar {
     /**
-     * @param index
-     * @param isBroken
+     *
      */
-    public Car(int index, boolean isBroken) {
-        super(index, isBroken);
-    }
+    private int numOfSeats;
 
     /**
      * @param index
      */
     public Car(int index) {
         super(index);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getNumOfSeats() {
+        return numOfSeats;
+    }
+
+    /**
+     *
+     * @param numOfSeats
+     */
+    public void setNumOfSeats(int numOfSeats) {
+        this.numOfSeats = numOfSeats;
     }
 }

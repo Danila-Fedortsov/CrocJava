@@ -7,17 +7,30 @@ import ru.croc.javaschool.sveterkom.vehicles.Vehicle;
  */
 public abstract class IMVehicle extends Vehicle {
     /**
-     * @param index
-     * @param isBroken
+     *
      */
-    public IMVehicle(int index, boolean isBroken) {
-        super(index, isBroken);
-    }
+    private double maxBatteryCharge;
 
     /**
      * @param index
      */
     public IMVehicle(int index) {
         super(index);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public double getMaxBatteryCharge() {
+        return maxBatteryCharge;
+    }
+
+    /**
+     *
+     * @param maxBatteryCharge
+     */
+    public void setMaxBatteryCharge(double maxBatteryCharge) {
+        this.maxBatteryCharge = maxBatteryCharge;
     }
 }

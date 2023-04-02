@@ -7,17 +7,30 @@ import ru.croc.javaschool.sveterkom.vehicles.Vehicle;
  */
 public abstract class Motorcar extends Vehicle {
     /**
-     * @param index
-     * @param isBroken
+     *
      */
-    public Motorcar(int index, boolean isBroken) {
-        super(index, isBroken);
-    }
+    private double enginePower;
 
     /**
      * @param index
      */
     public Motorcar(int index) {
         super(index);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public double getEnginePower() {
+        return enginePower;
+    }
+
+    /**
+     *
+     * @param enginePower
+     */
+    public void setEnginePower(double enginePower) {
+        this.enginePower = enginePower;
     }
 }

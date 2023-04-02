@@ -35,18 +35,28 @@ public class RentRecord {
 
     /**
      *
-     * @param searchDate
+     * @param dateOne
+     * @param dateTwo
      * @return
      */
-    public boolean isActive(LocalDate searchDate) {
-        return !startDate.isAfter(searchDate) && !endDate.isBefore(searchDate);
+    public boolean isActive(LocalDate dateOne, LocalDate dateTwo) {
+        return !(dateOne.isAfter(startDate) && dateOne.isAfter(endDate) ||
+                dateTwo.isBefore(startDate) && dateTwo.isBefore(endDate));
+    }
+
+    /**
+     *
+     * @param endDate
+     */
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
     /**
      *
      * @return
      */
-    public int getCarIndex() {
+    public int getVehicleIndex() {
         return carIndex;
     }
 }

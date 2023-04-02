@@ -5,17 +5,30 @@ package ru.croc.javaschool.sveterkom.vehicles.aircrafts;
  */
 public class Helicopter extends Aircraft{
     /**
-     * @param index
-     * @param isBroken
+     *
      */
-    public Helicopter(int index, boolean isBroken) {
-        super(index, isBroken);
-    }
+    private int numOfBlades;
 
     /**
      * @param index
      */
     public Helicopter(int index) {
         super(index);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getNumOfBlades() {
+        return numOfBlades;
+    }
+
+    /**
+     *
+     * @param numOfBlades
+     */
+    public void setNumOfBlades(int numOfBlades) {
+        this.numOfBlades = numOfBlades;
     }
 }

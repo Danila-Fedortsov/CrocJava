@@ -7,12 +7,9 @@ import ru.croc.javaschool.sveterkom.vehicles.Vehicle;
  */
 public abstract class Aircraft extends Vehicle {
     /**
-     * @param index
-     * @param isBroken
+     *
      */
-    public Aircraft(int index, boolean isBroken) {
-        super(index, isBroken);
-    }
+    private double flightDuration;
 
     /**
      *
@@ -20,5 +17,21 @@ public abstract class Aircraft extends Vehicle {
      */
     public Aircraft(int index) {
         super(index);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public double getFlightDuration() {
+        return flightDuration;
+    }
+
+    /**
+     *
+     * @param flightDuration
+     */
+    public void setFlightDuration(double flightDuration) {
+        this.flightDuration = flightDuration;
     }
 }
