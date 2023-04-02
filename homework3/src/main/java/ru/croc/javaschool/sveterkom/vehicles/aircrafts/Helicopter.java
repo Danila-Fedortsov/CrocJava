@@ -29,4 +29,13 @@ public class Helicopter extends Aircraft{
     public int getNumOfBlades() {
         return numOfBlades;
     }
+
+    /**
+     * Создан, чтобы условно показывать реализацию доступа к полю numOfBlades.
+     *
+     * @param numOfBlades число лопастей
+     */
+    public void setNumOfBlades(int numOfBlades) {
+        this.numOfBlades = numOfBlades;
+    }
 }

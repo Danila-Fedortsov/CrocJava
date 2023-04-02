@@ -29,4 +29,14 @@ public class BusinessJet extends Aircraft {
     public double getWingspan() {
         return wingspan;
     }
+
+    /**
+     * Создан, чтобы условно показывать реализацию доступа к полю wingspan.
+     *
+     * @param wingspan новый размах крыльев
+     */
+    public void setWingspan(double wingspan) {
+        this.wingspan = wingspan;
+    }
+
 }
