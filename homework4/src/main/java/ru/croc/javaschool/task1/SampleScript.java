@@ -43,9 +43,13 @@ public class SampleScript {
         employees.get(6).setManager(employees.get(5)); // Daniel  подчиняется Sarah.
         employees.get(7).setManager(employees.get(4)); // Stan    подчиняется 5#Alice
 
-        if (EmployeeManagement.isCorrectEmployeeList(employees)) {
+        ArrayList<ArrayList<Employee>> companies = EmployeeManagement.getCompanies(employees);
+        HashMap<Employee, Integer> managers = EmployeeManagement.getManagersWithNumOfSub(employees);
+
+        if (companies == null) {
+            System.out.println("Список сотрудников некорректен.");
+        } else {
             System.out.println("Распределение по компаниям:\n");
-            ArrayList<ArrayList<Employee>> companies = EmployeeManagement.getCompanies(employees);
             for (int i = 0; i < companies.size(); i++) {
                 System.out.printf("Компания %s:%n", i + 1);
                 for (Employee e : companies.get(i)) {
@@ -53,14 +57,15 @@ public class SampleScript {
                 }
                 System.out.println();
             }
+        }
 
+        if (managers == null) {
+            System.out.println("Список сотрудников некорректен.");
+        } else {
             System.out.println("\nКоличество сотрудников в подчинении у каждого менеджера:\n");
-            HashMap<Employee, Integer> managers = EmployeeManagement.getManagersWithNumOfSub(employees);
             for (Employee e : managers.keySet()) {
                 System.out.printf("У %-7s %s подчинённых%n", e, managers.get(e));
             }
-        } else {
-            System.out.println("Список сотрудников некорректен.");
         }
     }
 

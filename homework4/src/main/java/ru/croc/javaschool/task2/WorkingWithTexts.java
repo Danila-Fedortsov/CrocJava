@@ -1,7 +1,9 @@
 package ru.croc.javaschool.task2;
 
-public class SampleScript {
+public class WorkingWithTexts {
     public static void main(String[] args) {
 
     }
+
+
 }
