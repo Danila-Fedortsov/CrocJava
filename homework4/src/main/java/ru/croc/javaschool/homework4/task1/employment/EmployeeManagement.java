@@ -1,7 +1,12 @@
-package ru.croc.javaschool.task1.employment;
+package ru.croc.javaschool.homework4.task1.employment;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import ru.croc.javaschool.homework4.general.MapUtil;
+
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  * Работа с данными и управление персоналом.
@@ -70,7 +75,7 @@ public class EmployeeManagement {
         if (!isCorrectEmployeeList(employees)) {
             return null;
         }
-        TreeMap<Employee, Integer> answer = new TreeMap<>();
+        Map<Employee, Integer> answer = new TreeMap<>();
         for (Employee e : employees) {
             if (e.getManager() == null && answer.get(e) == null) {
                 answer.put(e, 0);
@@ -86,23 +91,14 @@ public class EmployeeManagement {
                 Employee manager = e.getManager();
                 int num = 1;
                 while (manager != null) {
-                    num += answer.get(manager);
-                    answer.put(manager, num);
+                    answer.put(manager, answer.get(manager) + num);
+                    num = answer.get(manager) + 1;
                     manager = manager.getManager();
                 }
             }
         }
 
-        return answer.entrySet().stream()
-                .sorted(Comparator.comparingInt(e -> -e.getValue()))
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        Map.Entry::getValue,
-                        (a, b) -> {
-                            throw new AssertionError();
-                        },
-                        LinkedHashMap::new
-                ));
+        return (HashMap<Employee, Integer>) MapUtil.sortByValue(answer);
     }
 
     /**

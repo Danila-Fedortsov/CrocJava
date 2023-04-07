@@ -1,4 +1,4 @@
-package ru.croc.javaschool.task1.employment;
+package ru.croc.javaschool.homework4.task1.employment;
 
 /**
  * Сотрудник.

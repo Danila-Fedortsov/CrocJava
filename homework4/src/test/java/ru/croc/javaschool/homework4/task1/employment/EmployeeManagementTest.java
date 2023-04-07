@@ -1,10 +1,11 @@
-package ru.croc.javaschool.task1.employment;
+package ru.croc.javaschool.homework4.task1.employment;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Тестирование класса {@link EmployeeManagement}.
@@ -30,16 +31,14 @@ public class EmployeeManagementTest {
         employees.get(3).setManager(null);
 
         ArrayList<ArrayList<Employee>> companies = EmployeeManagement.getCompanies(employees);
-
-        Assertions.assertEquals(2,  companies.size());
+        Assertions.assertNotNull(companies);
+        Assertions.assertEquals(2, companies.size());
         Assertions.assertEquals(2, companies.get(0).size());
         Assertions.assertEquals(2, companies.get(1).size());
         Assertions.assertTrue(companies.get(0).contains(employees.get(0)));
         Assertions.assertTrue(companies.get(0).contains(employees.get(1)));
         Assertions.assertTrue(companies.get(1).contains(employees.get(2)));
         Assertions.assertTrue(companies.get(1).contains(employees.get(3)));
-        System.out.println(companies.get(0));
-        System.out.println(companies.get(1));
     }
 
     /**
@@ -49,6 +48,7 @@ public class EmployeeManagementTest {
      */
     @Test
     public void getManagersWithNumOfSubTest() {
+        String expectedStr = "{1#Almond=6, 2#Alex=2}";
         ArrayList<Employee> employees = new ArrayList<>(List.of(
                 new Employee(1, "Almond"),
                 new Employee(2, "Alex"),
@@ -62,11 +62,10 @@ public class EmployeeManagementTest {
         employees.get(3).setManager(employees.get(1));
         employees.get(4).setManager(employees.get(1));
 
-        System.out.println(EmployeeManagement.getManagersWithNumOfSub(employees));
-        Assertions.assertEquals(Integer.valueOf(4), EmployeeManagement
-                .getManagersWithNumOfSub(employees)
-                .get(employees.get(0))
-        );
+        Map<Employee, Integer> actualRes = EmployeeManagement.getManagersWithNumOfSub(employees);
+
+        Assertions.assertNotNull(actualRes);
+        Assertions.assertEquals(expectedStr, actualRes.toString());
     }
 
     /**
@@ -83,7 +82,7 @@ public class EmployeeManagementTest {
                 new Employee(4, "Alice"),
                 new Employee(5, "Chuck")
         ));
-        employees2.add((Employee) null);
+        employees2.add(null);
 
         Assertions.assertFalse(EmployeeManagement.isCorrectEmployeeList(employees1));
         Assertions.assertFalse(EmployeeManagement.isCorrectEmployeeList(employees2));
