@@ -2,10 +2,7 @@ package ru.croc.javaschool.homework4.general;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-<<<<<<< HEAD
-=======
 
->>>>>>> master/master
 import java.util.HashMap;
 import java.util.Map;
 
