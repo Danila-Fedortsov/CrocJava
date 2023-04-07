@@ -1,4 +1,4 @@
-package ru.croc.javaschool.task1;
+package ru.croc.javaschool.homework4.task1;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

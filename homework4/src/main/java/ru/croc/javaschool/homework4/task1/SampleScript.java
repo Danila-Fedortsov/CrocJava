@@ -1,11 +1,11 @@
-package ru.croc.javaschool.task1;
+package ru.croc.javaschool.homework4.task1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import ru.croc.javaschool.task1.employment.Employee;
-import ru.croc.javaschool.task1.employment.EmployeeManagement;
+import ru.croc.javaschool.homework4.task1.employment.Employee;
+import ru.croc.javaschool.homework4.task1.employment.EmployeeManagement;
 
 /**
  * Пример сценария работы с классом {@link EmployeeManagement}.
