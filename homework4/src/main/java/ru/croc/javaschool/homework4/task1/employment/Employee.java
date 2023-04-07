@@ -5,7 +5,7 @@ package ru.croc.javaschool.homework4.task1.employment;
  *
  * @author Danila Fedortsov
  */
-public class Employee implements Comparable<Employee>{
+public class Employee implements Comparable<Employee> {
     /**
      * Уникальный номер.
      */
