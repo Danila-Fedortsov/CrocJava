@@ -1,4 +1,4 @@
-package ru.croc.javaschool.rogaikopyta.tasksback;
+package ru.croc.javaschool.rogaikopyta.back;
 
 import java.io.Serializable;
 
@@ -16,7 +16,7 @@ public class Task implements Serializable {
     /**
      * Код задачи.
      */
-    private int id;
+    private final int id;
 
     /**
      * Название задачи.
@@ -26,12 +26,12 @@ public class Task implements Serializable {
     /**
      * Описание задачи.
      */
-    private String description;
+    private final String description;
 
     /**
      * Исполнитель.
      */
-    private String executor;
+    private final String executor;
 
     /**
      * Статус задачи.
@@ -55,12 +55,17 @@ public class Task implements Serializable {
         this.status = status;
     }
 
-    public int getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "Задача " + id +
+                " \"" + name + "\";" +
+                "Описание: " + description + "; " +
+                "Исполнитель: " + executor + "; " +
+                "Статус: " + status + ".";
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -71,27 +76,19 @@ public class Task implements Serializable {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getExecutor() {
-        return executor;
-    }
-
-    public void setExecutor(String executor) {
-        this.executor = executor;
-    }
-
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getExecutor() {
+        return executor;
     }
 }
