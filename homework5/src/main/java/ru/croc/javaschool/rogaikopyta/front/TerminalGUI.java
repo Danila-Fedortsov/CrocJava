@@ -3,7 +3,6 @@ package ru.croc.javaschool.rogaikopyta.front;
 import ru.croc.javaschool.rogaikopyta.back.Task;
 import ru.croc.javaschool.rogaikopyta.back.TaskManagerUtil;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -13,9 +12,20 @@ import java.util.Scanner;
 
 import static java.util.Map.entry;
 
-public class ConsoleGUIForTM {
-    private final String defaultPath = "src/main/resources/tasks.dat";
+/**
+ * Пример использования класса {@link TaskManagerUtil} для пользовательского интерфейса в терминале.
+ *
+ * @author Danila Fedortsov
+ */
+public class TerminalGUI {
+    /**
+     * Название файла и директория по умолчанию.
+     */
+    private final String defaultPath = "tasks.dat";
 
+    /**
+     * Словарь со справочными сообщениями.
+     */
     private final Map<String, String> USER_MESSAGES = new HashMap<>(Map.ofEntries(
             entry("-task", "Введите код задачи."),
             entry("-list", "Список задач:"),
@@ -35,14 +45,19 @@ public class ConsoleGUIForTM {
                             "-edit_name   --- Редактирование названия задачи.\n" +
                             "-edit_status --- Редактирование статуса задачи.\n" +
                             "-cancel      --- Прервать любую операцию.\n" +
-                            "-exit        --- Завершить работу.")
+                            "-clear       --- Очистить список задач.\n" +
+                            "-exit        --- Завершить работу.\n" +
+                            "-help        --- Вызов подсказок."
+            )
     ));
 
+    /**
+     * Словарь с информационными сообщениями о выполнении программы.
+     */
     private final Map<String, String> RUNTIME_MESSAGES = new HashMap<>(Map.ofEntries(
+            entry("new_file", "Создан новый файл " + defaultPath + ", так как старый не был найден."),
             entry("start", "Task manager v1.0"),
-            entry("ref", "Для вызова списка команд введите команду -help"),
-            entry("init_err", "Непредвиденная ошибка! Вероятнее всего отсутствует папка resources.\n"
-                    + "Убедитесь, что путь \"~/src/main/resources/\" существует и запустите программу снова."),
+            entry("ref", "Введите команду. Вызов подсказки: -help"),
             entry("task_err", "Задачи с таким кодом нет."),
             entry("list_empty", "На данный момент задач нет."),
             entry("add_suc", "Задача успешно добавлена!"),
@@ -52,39 +67,31 @@ public class ConsoleGUIForTM {
             entry("edit_suc", "Редактирование прошло успешно."),
             entry("edit_err", "Что-то пошло не так!\nВероятнее всего задача с заданным кодом не найдена."),
             entry("id_err", "Введите целочисленное значение! Завершить операцию: -cancel"),
-            entry("input_err", "Введите одну из команд. Для справки введите -help"),
+            entry("input_err", "Некорректная команда. Попробуйте снова."),
             entry("separator", "\n|>======================================================<|")
     ));
+
+    /**
+     * Управляющий нашим таск-менеджером.
+     */
     TaskManagerUtil taskManagerUtil;
 
-    public ConsoleGUIForTM() {
-        try {
-            this.taskManagerUtil = new TaskManagerUtil(defaultPath);
-        } catch (IOException ex) {
-            printRuntimeMessage("init_err");
-            throw new RuntimeException(ex);
+    /**
+     * Создаёт {@link TerminalGUI}.
+     */
+    public TerminalGUI() {
+        this.taskManagerUtil = new TaskManagerUtil(defaultPath);
+        if (taskManagerUtil.fileIsNew()) {
+            printRuntimeMessage("new_file");
         }
     }
 
-//    public ConsoleGUIForTM(String path) {
-//        this();
-//        try {
-//            this.taskManagerUtil = new TaskManagerUtil(path);
-//        } catch (IOException e) {
-//            String message = String.format(
-//                    "Вероятнее всего передан некорректный путь до файла. " +
-//                            "Был создан файл по умолчанию \"%s\".%n" +
-//                            "Для указания нужного файла воспользуйтесь методом setPath.",
-//                    defaultPath
-//            );
-//            printMessage(message);
-//        }
-//    }
-
+    /**
+     * Обработчик ввода в терминал.
+     */
     public void handler() {
         Scanner scanner = new Scanner(System.in);
 
-        printRuntimeMessage("separator");
         printRuntimeMessage("start");
         printRuntimeMessage("separator");
         printRuntimeMessage("ref");
@@ -97,7 +104,7 @@ public class ConsoleGUIForTM {
                     printUserMessage(inputLine);
                     inputLine = scanner.nextLine();
 
-                    while (!isIdCorrect(inputLine) && !inputLine.equals("-cancel")) {
+                    while (idNotCorrect(inputLine) && !inputLine.equals("-cancel")) {
                         inputLine = scanner.nextLine();
                     }
 
@@ -121,13 +128,11 @@ public class ConsoleGUIForTM {
 
                     do {
                         inputLine = scanner.nextLine();
-                        if (count == 5 && !isIdCorrect(inputLine)) {
-                            inputLine = scanner.nextLine();
+                        if (count == 5 && idNotCorrect(inputLine)) {
                             continue;
                         }
                         data.add(inputLine);
                         count--;
-
                     } while (!inputLine.equals("-cancel") && count > 0);
 
                     if (inputLine.equals("-cancel")) {
@@ -142,7 +147,7 @@ public class ConsoleGUIForTM {
                     printUserMessage(inputLine);
                     inputLine = scanner.nextLine();
 
-                    while (!isIdCorrect(inputLine) && !inputLine.equals("-cancel")) {
+                    while (idNotCorrect(inputLine) && !inputLine.equals("-cancel")) {
                         inputLine = scanner.nextLine();
                     }
 
@@ -157,7 +162,7 @@ public class ConsoleGUIForTM {
                 case "-edit_name": {
                     printUserMessage(inputLine);
                     inputLine = scanner.nextLine();
-                    while (!isIdCorrect(inputLine) && !inputLine.equals("-cancel")) {
+                    while (idNotCorrect(inputLine) && !inputLine.equals("-cancel")) {
                         inputLine = scanner.nextLine();
                     }
                     if (inputLine.equals("-cancel")) {
@@ -179,7 +184,7 @@ public class ConsoleGUIForTM {
                 case "-edit_status": {
                     printUserMessage(inputLine);
                     inputLine = scanner.nextLine();
-                    while (!isIdCorrect(inputLine) && !inputLine.equals("-cancel")) {
+                    while (idNotCorrect(inputLine) && !inputLine.equals("-cancel")) {
                         inputLine = scanner.nextLine();
                     }
                     if (inputLine.equals("-cancel")) {
@@ -219,6 +224,11 @@ public class ConsoleGUIForTM {
         }
     }
 
+    /**
+     * Добавляет задачу в список задач. На вход подаётся список из 5 строк, где первый элемент приводим к целому числу.
+     *
+     * @param data данные о задаче
+     */
     private void appendTask(ArrayList<String> data) {
         Task newTask = new Task(
                 Integer.parseInt(data.get(0)),
@@ -235,6 +245,11 @@ public class ConsoleGUIForTM {
         }
     }
 
+    /**
+     * Удаляет задачу с кодом id.
+     *
+     * @param id код задачи для удаления
+     */
     private void removeTask(int id) {
         if (this.taskManagerUtil.delTask(id)) {
             printRuntimeMessage("del_suc");
@@ -243,6 +258,12 @@ public class ConsoleGUIForTM {
         }
     }
 
+    /**
+     * Изменяет название задачи с кодом id.
+     *
+     * @param id   код задачи для изменения
+     * @param name новое название
+     */
     private void editName(int id, String name) {
         if (this.taskManagerUtil.setTaskName(id, name)) {
             printRuntimeMessage("edit_suc");
@@ -251,6 +272,12 @@ public class ConsoleGUIForTM {
         }
     }
 
+    /**
+     * Изменяет статус задачи с кодом id.
+     *
+     * @param id     код задачи для изменения
+     * @param status новый статус
+     */
     private void editStatus(int id, String status) {
         if (this.taskManagerUtil.setTaskStatus(id, status)) {
             printRuntimeMessage("edit_suc");
@@ -259,6 +286,11 @@ public class ConsoleGUIForTM {
         }
     }
 
+    /**
+     * Выводит на экран задачу с кодом id.
+     *
+     * @param id код задачи
+     */
     private void getTask(int id) {
         Task task = taskManagerUtil.getTaskById(id, taskManagerUtil.getTasks());
         if (Objects.isNull(task)) {
@@ -268,34 +300,61 @@ public class ConsoleGUIForTM {
         printInformation(task.toString());
     }
 
+    /**
+     * Возвращает список задач.
+     */
     private void getTaskList() {
         LinkedList<Task> list = taskManagerUtil.getTasks();
         if (list.isEmpty()) {
             printRuntimeMessage("list_empty");
             return;
         }
-        printInformation(list.toString());
+        printInformation(list
+                .toString()
+                .substring(1, list.toString().length() - 2)
+        );
     }
 
-    private boolean isIdCorrect(String value) {
+    /**
+     * Проверяет может ли строка быть кодом задачи.
+     *
+     * @param value строка
+     * @return true - не может быть id, false - может быть id
+     */
+    private boolean idNotCorrect(String value) {
         try {
-            int id = Integer.parseInt(value);
-            return true;
+            Integer.parseInt(value);
+            return false;
         } catch (NumberFormatException e) {
             printRuntimeMessage("id_err");
-            return false;
+            return true;
         }
     }
 
+    /**
+     * Выводит сообщение inf на экран.
+     *
+     * @param inf информация для вывода на экран.
+     */
     private void printInformation(String inf) {
         System.out.println(inf);
     }
 
+    /**
+     * Выводит справочное сообщение с кодом code на экран.
+     *
+     * @param code код справочного сообщения
+     */
     private void printUserMessage(String code) {
-        System.out.println(USER_MESSAGES.get(code));
+        printInformation(USER_MESSAGES.get(code));
     }
 
+    /**
+     * Выводит информационное сообщение о работе программы с кодом code.
+     *
+     * @param code код информационного сообщения
+     */
     private void printRuntimeMessage(String code) {
-        System.out.println(RUNTIME_MESSAGES.get(code));
+        printInformation(RUNTIME_MESSAGES.get(code));
     }
 }
