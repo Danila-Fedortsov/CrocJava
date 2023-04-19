@@ -12,8 +12,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Тестирование {@link XmlConverter}.
+ *
+ * @author Danila Fedortsov
+ */
 public class XmlConverterTest {
 
+    /**
+     * Тестирование {@link XmlConverter#toXml}.
+     *
+     * @throws JsonProcessingException бывает
+     */
     @Test
     public void toXmlTest() throws JsonProcessingException {
         String expectedXml = "<Project><title>Проект 1</title><description>Описание</description><managers>" +
@@ -33,6 +43,11 @@ public class XmlConverterTest {
         Assertions.assertEquals(expectedXml, xmlc.toXml(pr1));
     }
 
+    /**
+     * Тестирование {@link XmlConverter#fromXml}.
+     *
+     * @throws IOException бывает
+     */
     @Test
     public void fromXmlTest() throws IOException {
         String xmlProjects = "<projects><project><title>Проект 1</title><description>Описание 1</description><managers>" +
