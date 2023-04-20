@@ -16,14 +16,14 @@ public class Manager {
      * Имя.
      */
     @XmlAttribute
-    String name;
+    private String name;
 
     /**
      * Список подчинённых.
      */
     @XmlElementWrapper(name = "specialists")
     @XmlElement(name = "specialist")
-    List<Subordinate> subordinates;
+    private List<Subordinate> subordinates;
 
     /**
      * Создаёт {@link Manager}.
