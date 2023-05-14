@@ -2,3 +2,5 @@
 out/
 *.iml
 target
+smart_city_db/
+derby.log

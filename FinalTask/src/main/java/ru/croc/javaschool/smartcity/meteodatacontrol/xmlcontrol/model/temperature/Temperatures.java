@@ -1,9 +1,14 @@
-package ru.croc.javaschool.smartcity.meteodatacontrol.xmlcontrol.patterns.input;
+package ru.croc.javaschool.smartcity.meteodatacontrol.xmlcontrol.model.temperature;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
+/**
+ * Список показаний о температуре воздуха.
+ *
+ * @author Danila Fedortsov
+ */
 @XmlRootElement(name = "Temperatures")
 public class Temperatures {
 
