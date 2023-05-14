@@ -18,6 +18,21 @@ public class Pressures {
     private List<Pressure> pressureList;
 
     /**
+     * Создаёт {@link Pressures}. Нужен для конвертации из xml.
+     */
+    public Pressures() {
+    }
+
+    /**
+     * Создаёт {@link Pressures}. Нужен для тестов.
+     *
+     * @param pressureList список давлений
+     */
+    public Pressures(List<Pressure> pressureList) {
+        this.pressureList = pressureList;
+    }
+
+    /**
      * Возвращает список.
      *
      * @return список

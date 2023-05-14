@@ -88,6 +88,10 @@ public class MeteoRecord {
         return temperature;
     }
 
+    public void setPressure(Double pressure) {
+        this.pressure = pressure;
+    }
+
     /**
      * Возвращает атмосферное давление.
      *
@@ -95,5 +99,20 @@ public class MeteoRecord {
      */
     public Double getPressure() {
         return pressure;
+    }
+
+    /**
+     * Строковое представление метеорологической записи. Нужен для тестов.
+     *
+     * @return строковое представление объекта
+     */
+    @Override
+    public String toString() {
+        return "MeteoRecord{" +
+                "id=" + id +
+                ", moment=" + moment +
+                ", temperature=" + temperature +
+                ", pressure=" + pressure +
+                '}';
     }
 }

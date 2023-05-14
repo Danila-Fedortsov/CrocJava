@@ -3,7 +3,8 @@ package ru.croc.javaschool.smartcity.meteodatacontrol.dbcontrol.service;
 import ru.croc.javaschool.smartcity.meteodatacontrol.dbcontrol.model.MeteoRecord;
 import ru.croc.javaschool.smartcity.meteodatacontrol.dbcontrol.repository.MeteoRepository;
 
-import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Сервис пользовательских запросов к базе данных.
@@ -24,19 +25,16 @@ public class MeteoService {
     }
 
     /**
-     * Создание новой метеорологической записи.
+     * Создание новых метеорологических записей.
      *
-     * @param moment дата и время в формате 'yyyy-mm-dd hh:mm:ss'
-     * @param temperature температура воздуха (°C)
-     * @param pressure атмосферное давление (мм рт. ст.)
-     * @return метеорологическая запись из базы данных, либо null если запись не удалась
+     * @param records список метеорологических записей
+     * @return список метеорологических записей из базы данных
      */
-    public MeteoRecord createNewMeteoRecord(Timestamp moment, double temperature, double pressure) {
-        return repository.create(
-                new MeteoRecord(
-                        moment,
-                        temperature,
-                        pressure
-                ));
+    public List<MeteoRecord> createAllNewMeteoRecord(List<MeteoRecord> records) {
+        List<MeteoRecord> dbRecords = new ArrayList<>(records.size());
+        for (MeteoRecord rec : records) {
+            dbRecords.add(repository.create(rec));
+        }
+        return dbRecords;
     }
 }

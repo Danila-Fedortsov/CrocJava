@@ -6,6 +6,8 @@ import ru.croc.javaschool.smartcity.meteodatacontrol.dbcontrol.repository.MeteoR
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -118,5 +120,4 @@ public class DerbyMeteoRepository implements MeteoRepository {
 
         return meteoRec;
     }
-
 }

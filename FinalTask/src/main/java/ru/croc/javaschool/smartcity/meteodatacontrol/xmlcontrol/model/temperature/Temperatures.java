@@ -1,5 +1,8 @@
 package ru.croc.javaschool.smartcity.meteodatacontrol.xmlcontrol.model.temperature;
 
+import ru.croc.javaschool.smartcity.meteodatacontrol.xmlcontrol.model.pressure.Pressure;
+import ru.croc.javaschool.smartcity.meteodatacontrol.xmlcontrol.model.pressure.Pressures;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
@@ -18,6 +21,20 @@ public class Temperatures {
     @XmlElement(name = "temperature")
     private List<Temperature> temperatureList;
 
+    /**
+     * Создаёт {@link Temperatures}. Нужен для конвертации из xml.
+     */
+    public Temperatures() {
+    }
+
+    /**
+     * Создаёт {@link Temperatures}. Нужен для тестов.
+     *
+     * @param temperatureList список температур
+     */
+    public Temperatures(List<Temperature> temperatureList) {
+        this.temperatureList = temperatureList;
+    }
     /**
      * Возвращает список.
      *
