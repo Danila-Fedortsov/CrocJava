@@ -12,7 +12,7 @@ public class Subordinate {
      * Имя.
      */
     @XmlAttribute
-    String name;
+    private String name;
 
     /**
      * Создаёт {@link Subordinate}.
