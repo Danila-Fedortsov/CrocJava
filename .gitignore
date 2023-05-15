@@ -3,4 +3,5 @@ out/
 *.iml
 target
 smart_city_db/
+stupid_city_db/
 derby.log
