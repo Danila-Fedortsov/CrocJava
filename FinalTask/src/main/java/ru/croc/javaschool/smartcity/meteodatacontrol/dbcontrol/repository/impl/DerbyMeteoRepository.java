@@ -6,8 +6,8 @@ import ru.croc.javaschool.smartcity.meteodatacontrol.dbcontrol.repository.MeteoR
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Types;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -75,9 +75,20 @@ public class DerbyMeteoRepository implements MeteoRepository {
              var statement = connection.prepareStatement(query)) {
 
             statement.setString(1, entityId.toString());
-            statement.setString(2, meteoRec.getMoment().toString());
-            statement.setString(3, meteoRec.getTemperature().toString());
-            statement.setString(4, meteoRec.getPressure().toString());
+            statement.setTimestamp(2, meteoRec.getMoment());
+
+            if (Objects.isNull(meteoRec.getTemperature())) {
+                statement.setNull(3, Types.DECIMAL);
+            } else {
+                statement.setString(3, meteoRec.getTemperature().toString());
+            }
+
+            if (Objects.isNull(meteoRec.getPressure())) {
+                statement.setNull(4, Types.DECIMAL);
+            } else {
+                statement.setString(4, meteoRec.getPressure().toString());
+            }
+
             statement.execute();
 
         } catch (SQLException e) {
@@ -107,11 +118,16 @@ public class DerbyMeteoRepository implements MeteoRepository {
              var statement = connection.createStatement();
              var resultSet = statement.executeQuery(query)) {
             if (resultSet.next()) {
+                String temp = resultSet.getString("temperature");
+                String pres = resultSet.getString("pressure");
+                Double tempRes = Objects.isNull(temp) ? null : Double.parseDouble(temp);
+                Double presRes = Objects.isNull(pres) ? null : Double.parseDouble(pres);
+
                 meteoRec = new MeteoRecord(
                         UUID.fromString(resultSet.getString("id")),
                         resultSet.getTimestamp("moment"),
-                        resultSet.getDouble("temperature"),
-                        resultSet.getDouble("pressure")
+                        tempRes,
+                        presRes
                 );
             }
         } catch (SQLException e) {

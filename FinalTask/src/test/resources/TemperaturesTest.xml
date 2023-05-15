@@ -1,6 +1,22 @@
 <Temperatures>
     <temperature>
-        <value>24.5</value>
-        <moment>21:01:00 17.02.2003</moment>
+        <value>30.7</value>
+        <moment>2023-05-17 15:21:33.0</moment>
+    </temperature>
+    <temperature>
+        <value>30.7</value>
+        <moment>2023-05-17 15:21:34.0</moment>
+    </temperature>
+    <temperature>
+        <value>30.8</value>
+        <moment>2023-05-17 15:21:35.0</moment>
+    </temperature>
+    <temperature>
+        <value>30.8</value>
+        <moment>2023-05-17 15:21:36.0</moment>
+    </temperature>
+    <temperature>
+        <value>31.3</value>
+        <moment>2023-05-17 15:30:55.00043</moment>
     </temperature>
 </Temperatures>

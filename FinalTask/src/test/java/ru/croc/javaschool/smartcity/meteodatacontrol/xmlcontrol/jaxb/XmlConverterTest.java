@@ -6,14 +6,22 @@ import ru.croc.javaschool.smartcity.meteodatacontrol.xmlcontrol.model.temperatur
 
 import java.io.IOException;
 
+/**
+ * Тест xml-конвертера.
+ *
+ * @author Danila Fedortsov
+ */
 public class XmlConverterTest {
 
-    private final String tempPath = "src\\test\\resources\\TemperaturesTest.xml";
-
-
+    /**
+     * Тест функции возвращающей объект из xml-файла.
+     *
+     * @throws IOException ошибка ввода
+     */
     @Test
     public void getMeasurementListFromFileTest() throws IOException {
-        String expected = "Temperature{value=24.5, moment='21:01:00 17.02.2003'}";
+        final String tempPath = "src\\test\\resources\\JaxbTest.xml";
+        String expected = "Temperature{value=24.5, moment='2003-02-17 21:01:00.0'}";
         XmlConverter xmlConverter = new XmlConverter();
         Temperatures temperatureList = xmlConverter.fromXmlFile(
                 tempPath,

@@ -1,7 +1,5 @@
 package ru.croc.javaschool.smartcity.meteodatacontrol.xmlcontrol.model.temperature;
 
-import ru.croc.javaschool.smartcity.meteodatacontrol.xmlcontrol.model.pressure.Pressure;
-
 import javax.xml.bind.annotation.XmlElement;
 
 /**
@@ -31,13 +29,14 @@ public class Temperature {
     /**
      * Создаёт {@link Temperature}. Нужен для тестов.
      *
-     * @param value значение температуры
+     * @param value  значение температуры
      * @param moment дата и время измерения в формате 'yyyy-mm-dd hh:mm:ss.nnnnnn'
      */
     public Temperature(double value, String moment) {
         this.value = value;
         this.moment = moment;
     }
+
     /**
      * Возвращает значение.
      *

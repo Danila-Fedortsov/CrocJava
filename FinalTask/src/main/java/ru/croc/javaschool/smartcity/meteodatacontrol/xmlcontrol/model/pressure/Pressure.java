@@ -29,7 +29,7 @@ public class Pressure {
     /**
      * Создаёт {@link Pressure}. Нужен для тестов.
      *
-     * @param value значение давления
+     * @param value  значение давления
      * @param moment дата и время измерения в формате 'yyyy-mm-dd hh:mm:ss.nnnnnn'
      */
     public Pressure(double value, String moment) {

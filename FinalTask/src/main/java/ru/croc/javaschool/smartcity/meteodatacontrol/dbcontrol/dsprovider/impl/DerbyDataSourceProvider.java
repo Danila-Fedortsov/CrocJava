@@ -11,7 +11,7 @@ import java.util.Objects;
  * Провайдер источника данных для работы с Derby (JavaDB).
  *
  * @author Danila Fedortsov
- * */
+ */
 public class DerbyDataSourceProvider implements DataSourceProvider {
 
     /**

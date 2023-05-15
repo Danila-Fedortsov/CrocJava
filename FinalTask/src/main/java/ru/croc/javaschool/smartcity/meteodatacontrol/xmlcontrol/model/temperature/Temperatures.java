@@ -1,12 +1,8 @@
 package ru.croc.javaschool.smartcity.meteodatacontrol.xmlcontrol.model.temperature;
 
-import ru.croc.javaschool.smartcity.meteodatacontrol.xmlcontrol.model.pressure.Pressure;
-import ru.croc.javaschool.smartcity.meteodatacontrol.xmlcontrol.model.pressure.Pressures;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Список показаний о температуре воздуха.
@@ -35,6 +31,7 @@ public class Temperatures {
     public Temperatures(List<Temperature> temperatureList) {
         this.temperatureList = temperatureList;
     }
+
     /**
      * Возвращает список.
      *
@@ -42,18 +39,5 @@ public class Temperatures {
      */
     public List<Temperature> getTemperatureList() {
         return temperatureList;
-    }
-
-    /**
-     * Возвращает показание температуры по заданной дате.
-     *
-     * @param moment дата и время
-     * @return показание температуры или null если не было найдено.
-     */
-    public Temperature getTemperature(String moment) {
-        return temperatureList.stream()
-                .filter(m -> m.getMoment().equals(moment))
-                .findFirst()
-                .orElse(null);
     }
 }

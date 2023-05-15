@@ -17,7 +17,7 @@ public class PropertyContainer {
     private static final Map<String, String> properties = new HashMap<>();
 
     /**
-     * Загружает свойства из properties-файла в словарь {@link #properties}. Файл должен находится в src/main/resources.
+     * Загружает свойства из properties-файла в словарь {@link #properties}.
      *
      * @param fileName название файла с расширением properties
      * @throws IOException если файл не был найден в ресурсах или из-за проблем с считыванием
