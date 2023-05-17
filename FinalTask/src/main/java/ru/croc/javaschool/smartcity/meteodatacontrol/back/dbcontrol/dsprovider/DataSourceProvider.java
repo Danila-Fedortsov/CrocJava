@@ -1,4 +1,4 @@
-package ru.croc.javaschool.smartcity.meteodatacontrol.dbcontrol.dsprovider;
+package ru.croc.javaschool.smartcity.meteodatacontrol.back.dbcontrol.dsprovider;
 
 import javax.sql.DataSource;
 
