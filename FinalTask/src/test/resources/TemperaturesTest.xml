@@ -19,4 +19,8 @@
         <value>31.3</value>
         <moment>2023-05-17 15:30:55.00043</moment>
     </temperature>
+    <temperature>
+        <value>35.9</value>
+        <moment>2023-05-17 15:21:34.0</moment>
+    </temperature>
 </Temperatures>
