@@ -1,8 +1,10 @@
-package ru.croc.javaschool.smartcity.meteodatacontrol.xmlcontrol.model.temperature;
+package ru.croc.javaschool.smartcity.meteodatacontrol.back.xmlcontrol.model.temperature;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Список показаний о температуре воздуха.
@@ -38,6 +40,9 @@ public class Temperatures {
      * @return список
      */
     public List<Temperature> getTemperatureList() {
+        if (Objects.isNull(temperatureList)){
+            return new ArrayList<>();
+        }
         return temperatureList;
     }
 }

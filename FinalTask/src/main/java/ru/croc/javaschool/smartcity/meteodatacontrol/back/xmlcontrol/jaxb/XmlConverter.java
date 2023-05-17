@@ -1,4 +1,4 @@
-package ru.croc.javaschool.smartcity.meteodatacontrol.xmlcontrol.jaxb;
+package ru.croc.javaschool.smartcity.meteodatacontrol.back.xmlcontrol.jaxb;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
@@ -34,17 +34,14 @@ public class XmlConverter {
     /**
      * Преобразует строку из xml-файла в объект.
      *
-     * @param path полный или относительный путь до объекта
+     * @param path полный или относительный путь до xml-файла
      * @param type класс возвращаемого объекта
      * @param <T>  тип возвращаемого объекта
      * @return объект соответствующий xml-модели
      * @throws IOException ошибка интерпретации xml-строки или ошибка чтения файла
      */
-    public <T> T fromXmlFile(String path, Class<T> type) throws IOException {
-        return fromXml(
-                Files.readString(Path.of(path)),
-                type
-        );
+    public <T> T fromXmlFile(Path path, Class<T> type) throws IOException {
+        return fromXml(Files.readString(path), type);
     }
 
     /**

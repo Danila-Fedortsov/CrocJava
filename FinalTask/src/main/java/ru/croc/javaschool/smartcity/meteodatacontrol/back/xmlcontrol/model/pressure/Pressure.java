@@ -1,15 +1,15 @@
-package ru.croc.javaschool.smartcity.meteodatacontrol.xmlcontrol.model.temperature;
+package ru.croc.javaschool.smartcity.meteodatacontrol.back.xmlcontrol.model.pressure;
 
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- * Температура воздуха.
+ * Атмосферное давление.
  *
  * @author Danila Fedortsov
  */
-public class Temperature {
+public class Pressure {
     /**
-     * Значение (°C).
+     * Значение (мм рт. ст.).
      */
     @XmlElement
     private double value;
@@ -21,18 +21,18 @@ public class Temperature {
     private String moment;
 
     /**
-     * Создаёт {@link Temperature}. Нужен для конвертации из xml.
+     * Создаёт {@link Pressure}. Нужен для конвертации из xml.
      */
-    public Temperature() {
+    public Pressure() {
     }
 
     /**
-     * Создаёт {@link Temperature}. Нужен для тестов.
+     * Создаёт {@link Pressure}. Нужен для тестов.
      *
-     * @param value  значение температуры
+     * @param value  значение давления
      * @param moment дата и время измерения в формате 'yyyy-mm-dd hh:mm:ss.nnnnnn'
      */
-    public Temperature(double value, String moment) {
+    public Pressure(double value, String moment) {
         this.value = value;
         this.moment = moment;
     }
@@ -40,14 +40,14 @@ public class Temperature {
     /**
      * Возвращает значение.
      *
-     * @return температура (°C)
+     * @return давление (мм рт. ст.)
      */
     public double getValue() {
         return value;
     }
 
     /**
-     * Возвращет дату и время.
+     * Возвращает дату и время.
      *
      * @return дата и время в формате 'yyyy-mm-dd hh:mm:ss.nnnnnn'
      */
@@ -56,13 +56,13 @@ public class Temperature {
     }
 
     /**
-     * Возвращает строковое представление объекта класса {@link Temperature}. Нужно для тестов.
+     * Возвращает строковое представление объекта класса {@link Pressure}. Нужно для тестов.
      *
      * @return строковое представление объекта
      */
     @Override
     public String toString() {
-        return "Temperature{" +
+        return "Pressure{" +
                 "value=" + value +
                 ", moment='" + moment + '\'' +
                 '}';

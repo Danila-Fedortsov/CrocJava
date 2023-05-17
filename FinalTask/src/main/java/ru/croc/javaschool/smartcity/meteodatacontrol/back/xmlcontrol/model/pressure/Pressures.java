@@ -1,8 +1,10 @@
-package ru.croc.javaschool.smartcity.meteodatacontrol.xmlcontrol.model.pressure;
+package ru.croc.javaschool.smartcity.meteodatacontrol.back.xmlcontrol.model.pressure;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Список показаний об атмосферном давлении.
@@ -38,6 +40,10 @@ public class Pressures {
      * @return список
      */
     public List<Pressure> getPressureList() {
+        if (Objects.isNull(pressureList)) {
+            return new ArrayList<>();
+        }
         return pressureList;
     }
+
 }

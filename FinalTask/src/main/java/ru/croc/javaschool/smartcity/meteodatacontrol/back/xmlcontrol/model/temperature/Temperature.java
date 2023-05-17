@@ -1,15 +1,15 @@
-package ru.croc.javaschool.smartcity.meteodatacontrol.xmlcontrol.model.pressure;
+package ru.croc.javaschool.smartcity.meteodatacontrol.back.xmlcontrol.model.temperature;
 
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- * Атмосферное давление.
+ * Температура воздуха.
  *
  * @author Danila Fedortsov
  */
-public class Pressure {
+public class Temperature {
     /**
-     * Значение (мм рт. ст.).
+     * Значение (°C).
      */
     @XmlElement
     private double value;
@@ -21,18 +21,18 @@ public class Pressure {
     private String moment;
 
     /**
-     * Создаёт {@link Pressure}. Нужен для конвертации из xml.
+     * Создаёт {@link Temperature}. Нужен для конвертации из xml.
      */
-    public Pressure() {
+    public Temperature() {
     }
 
     /**
-     * Создаёт {@link Pressure}. Нужен для тестов.
+     * Создаёт {@link Temperature}. Нужен для тестов.
      *
-     * @param value  значение давления
+     * @param value  значение температуры
      * @param moment дата и время измерения в формате 'yyyy-mm-dd hh:mm:ss.nnnnnn'
      */
-    public Pressure(double value, String moment) {
+    public Temperature(double value, String moment) {
         this.value = value;
         this.moment = moment;
     }
@@ -40,14 +40,14 @@ public class Pressure {
     /**
      * Возвращает значение.
      *
-     * @return давление (мм рт. ст.)
+     * @return температура (°C)
      */
     public double getValue() {
         return value;
     }
 
     /**
-     * Возвращает дату и время.
+     * Возвращет дату и время.
      *
      * @return дата и время в формате 'yyyy-mm-dd hh:mm:ss.nnnnnn'
      */
@@ -56,13 +56,13 @@ public class Pressure {
     }
 
     /**
-     * Возвращает строковое представление объекта класса {@link Pressure}. Нужно для тестов.
+     * Возвращает строковое представление объекта класса {@link Temperature}. Нужно для тестов.
      *
      * @return строковое представление объекта
      */
     @Override
     public String toString() {
-        return "Pressure{" +
+        return "Temperature{" +
                 "value=" + value +
                 ", moment='" + moment + '\'' +
                 '}';
