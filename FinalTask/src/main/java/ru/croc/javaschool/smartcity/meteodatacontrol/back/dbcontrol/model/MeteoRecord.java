@@ -1,4 +1,4 @@
-package ru.croc.javaschool.smartcity.meteodatacontrol.dbcontrol.model;
+package ru.croc.javaschool.smartcity.meteodatacontrol.back.dbcontrol.model;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -9,7 +9,6 @@ import java.util.UUID;
  * @author Danila Fedortsov
  */
 public class MeteoRecord {
-
     /**
      * Название таблицы в которой хранятся записи.
      */
@@ -80,6 +79,15 @@ public class MeteoRecord {
     }
 
     /**
+     * Задаёт новое значение температуры.
+     *
+     * @param temperature температура воздуха
+     */
+    public void setTemperature(Double temperature) {
+        this.temperature = temperature;
+    }
+
+    /**
      * Возвращает температуру воздуха.
      *
      * @return температура воздуха
@@ -88,6 +96,11 @@ public class MeteoRecord {
         return temperature;
     }
 
+    /**
+     * Задаёт новое значение давления.
+     *
+     * @param pressure атмосферное давление
+     */
     public void setPressure(Double pressure) {
         this.pressure = pressure;
     }
